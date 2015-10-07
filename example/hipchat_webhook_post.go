@@ -73,7 +73,7 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 		strFrom = user.Name
 	}
 
-	fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
+	//fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 
 	Msg_Split := strings.Split(sourceMessage.Message, " ")
 
@@ -81,8 +81,7 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 	var buffer bytes.Buffer
 
 	for value := 1; value < len(Msg_Split); value++ {
-		buffer.WriteString(Msg_Split[value])
-		buffer.WriteString(" ")
+		buffer.WriteString(fmt.Sprintf("%s ",Msg_Split[value]))
 	}
 	SearchKey := buffer.String()
 
@@ -96,7 +95,7 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 
 	send_Notify(AccessToken, RoomID, sendMsg, MsgColor)
 
-	fmt.Printf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
+	//fmt.Printf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 
 	msg := fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 	_, err := f.WriteString(msg)
