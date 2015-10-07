@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"github.com/tbruyelle/hipchat-go/hipchat"
 	"log"
@@ -51,9 +52,9 @@ type HipChatRoom struct {
 }
 
 var (
-	AccessToken = "tNgowr8imQKkISK3LBI1cHDVXmkjxUPcvlmktwen"
-	RoomID      = "730783"
-	MsgColor    = "green"
+	AccessToken = flag.String("token", "", "Access Token")
+	RoomID      = flag.String("id", "", "ID of Chart Room")
+	MsgColor    = flag.String("color", "green", "Color of Message")
 )
 
 func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventMessage) error {
@@ -73,15 +74,13 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 		strFrom = user.Name
 	}
 
-	//fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
-
 	Msg_Split := strings.Split(sourceMessage.Message, " ")
 
 	var sendMsg string
 	var buffer bytes.Buffer
 
 	for value := 1; value < len(Msg_Split); value++ {
-		buffer.WriteString(fmt.Sprintf("%s ",Msg_Split[value]))
+		buffer.WriteString(fmt.Sprintf("%s ", Msg_Split[value]))
 	}
 	SearchKey := buffer.String()
 
@@ -93,9 +92,7 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 		sendMsg = fmt.Sprintf("Usage : <br> /Search [Keyword] <br> /Asset [Device ID] <br> /Help : display help message")
 	}
 
-	send_Notify(AccessToken, RoomID, sendMsg, MsgColor)
-
-	//fmt.Printf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
+	send_Notify(*AccessToken, *RoomID, sendMsg, *MsgColor)
 
 	msg := fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 	_, err := f.WriteString(msg)
@@ -129,15 +126,21 @@ func send_Notify(token string, id string, message string, color string) {
 }
 
 func main() {
+	flag.Parse()
 
-	filePath := "hip.log"
-	out, err := os.OpenFile(filePath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
-	if err != nil {
-		log.Fatalf("can not open the log file: %s, err: %v", filePath, err)
+	if *AccessToken == "" || *RoomID == "" {
+		fmt.Println("Please Input Access Token ,Room ID")
+		os.Exit(-1)
+	} else {
+		filePath := "hip.log"
+		out, err := os.OpenFile(filePath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
+		if err != nil {
+			log.Fatalf("can not open the log file: %s, err: %v", filePath, err)
+		}
+		defer out.Close()
+		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+			handler(w, r, out)
+		})
+		http.ListenAndServe(":8088", nil)
 	}
-	defer out.Close()
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		handler(w, r, out)
-	})
-	http.ListenAndServe(":8088", nil)
 }
