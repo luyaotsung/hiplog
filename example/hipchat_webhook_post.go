@@ -103,6 +103,12 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 func handler(w http.ResponseWriter, r *http.Request, outFile *os.File) {
 	var notifyEvent HipChatEvent
 
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(r.Body)
+	s := buf.String()
+
+	fmt.Println(s)
+
 	json.NewDecoder(r.Body).Decode(&notifyEvent)
 
 	err := writeToFile(outFile, notifyEvent.Item.Room, notifyEvent.Item.Message)
