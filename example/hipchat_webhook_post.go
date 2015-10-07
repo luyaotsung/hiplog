@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type HipChatEvent struct {
@@ -51,6 +52,7 @@ type HipChatRoom struct {
 var (
 	AccessToken = "tNgowr8imQKkISK3LBI1cHDVXmkjxUPcvlmktwen"
 	RoomID      = "730783"
+	MsgColor    = "green"
 )
 
 func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventMessage) error {
@@ -72,9 +74,19 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 
 	fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 
-	Msg := fmt.Sprintf("Your Input Message is %s", sourceMessage.Message)
+	Msg_Split := strings.Split(sourceMessage.Message, " ")
 
-	send_Notify(AccessToken, RoomID, Msg, "red")
+	var sendMsg string
+
+	if Msg_Split[0] == "/Search" {
+		sendMsg = fmt.Sprintf("You want to SEARCH Keyword is [%s]", Msg_Split[1])
+	} else if Msg_Split[0] == "/Asset" {
+		sendMsg = fmt.Sprintf("You want to SEARCH ID is [%s]", Msg_Split[1])
+	} else {
+		sendMsg = fmt.Sprintf("Usage : <br> /Search [Keyword] <br> /Asset [Device ID] <br> /Help : display help message")
+	}
+
+	send_Notify(AccessToken, RoomID, sendMsg, MsgColor)
 
 	msg := fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 	_, err := f.WriteString(msg)
