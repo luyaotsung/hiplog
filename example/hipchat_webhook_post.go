@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/tbruyelle/hipchat-go/hipchat"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -100,14 +101,29 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 	return err
 }
 
+type myReader struct {
+	*bytes.Buffer
+}
+
 func handler(w http.ResponseWriter, r *http.Request, outFile *os.File) {
 	var notifyEvent HipChatEvent
 
-	buf := new(bytes.Buffer)
-	buf.ReadFrom(r.Body)
-	s := buf.String()
+	//buf := new(bytes.Buffer)
+	//buf.ReadFrom(r.Body)
+	//s := buf.String()
 
-	fmt.Println(s)
+	//fmt.Println(s)
+
+	var bodyBytes []byte
+	if r.Body != nil {
+		bodyBytes, _ = ioutil.ReadAll(r.Body)
+	}
+	r.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+	bodyString := string(bodyBytes)
+
+	fmt.Println("--- Original ---")
+	fmt.Println(bodyString)
+	fmt.Println("--- End ---")
 
 	json.NewDecoder(r.Body).Decode(&notifyEvent)
 
