@@ -86,9 +86,9 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 	SearchKey := buffer.String()
 
 	if Msg_Split[0] == "/Search" {
-		sendMsg = fmt.Sprintf("You want to SEARCH Keyword is [%s]", SearchKey)
+		sendMsg = fmt.Sprintf("You want to SEARCH Keyword is %s", SearchKey)
 	} else if Msg_Split[0] == "/Asset" {
-		sendMsg = fmt.Sprintf("You want to SEARCH ID is [%s]", SearchKey)
+		sendMsg = fmt.Sprintf("You want to SEARCH ID is %s", SearchKey)
 	} else {
 		sendMsg = fmt.Sprintf("Usage : <br> /Search [Keyword] <br> /Asset [Device ID] <br> /Help : display help message")
 	}
