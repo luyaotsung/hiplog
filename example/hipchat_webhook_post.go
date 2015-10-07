@@ -82,6 +82,7 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 
 	for value := 1; value < len(Msg_Split); value++ {
 		buffer.WriteString(Msg_Split[value])
+		buffer.WriteString(" ")
 	}
 	SearchKey := buffer.String()
 
