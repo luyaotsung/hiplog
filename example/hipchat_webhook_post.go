@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/tbruyelle/hipchat-go/hipchat"
@@ -77,16 +78,24 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 	Msg_Split := strings.Split(sourceMessage.Message, " ")
 
 	var sendMsg string
+	var buffer bytes.Buffer
+
+	for value := 1; value < len(Msg_Split); value++ {
+		buffer.WriteString(Msg_Split[value])
+	}
+	SearchKey := buffer.String()
 
 	if Msg_Split[0] == "/Search" {
-		sendMsg = fmt.Sprintf("You want to SEARCH Keyword is [%s]", Msg_Split[1])
+		sendMsg = fmt.Sprintf("You want to SEARCH Keyword is [%s]", SearchKey)
 	} else if Msg_Split[0] == "/Asset" {
-		sendMsg = fmt.Sprintf("You want to SEARCH ID is [%s]", Msg_Split[1])
+		sendMsg = fmt.Sprintf("You want to SEARCH ID is [%s]", SearchKey)
 	} else {
 		sendMsg = fmt.Sprintf("Usage : <br> /Search [Keyword] <br> /Asset [Device ID] <br> /Help : display help message")
 	}
 
 	send_Notify(AccessToken, RoomID, sendMsg, MsgColor)
+
+	fmt.Printf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 
 	msg := fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 	_, err := f.WriteString(msg)
