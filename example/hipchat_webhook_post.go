@@ -92,6 +92,7 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 		sendMsg = fmt.Sprintf("Usage : <br> /Search [Keyword] <br> /Asset [Device ID] <br> /Help : display help message")
 	}
 
+	fmt.Printf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 	send_Notify(*AccessToken, *RoomID, sendMsg, *MsgColor)
 
 	msg := fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
