@@ -35,7 +35,7 @@ type HipChatEventMessage struct {
 }
 
 type HipChatUser struct {
-	Id      int    `json:"id"`
+	Id      float64    `json:"id"`
 	Mention string `json:"mention_name"`
 	Name    string `json:"name"`
 }
@@ -60,16 +60,19 @@ var (
 
 func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventMessage) error {
 
+	fmt.Println("--- Bgin writeToFile ---")
 	strFrom, ok := sourceMessage.From.(string)
 
 	if !ok {
 		str, err := json.Marshal(sourceMessage.From)
 		if err != nil {
+                        log.Printf("Error: %v\n", err)
 			return err
 		}
 		var user HipChatUser
 		err = json.Unmarshal([]byte(str), &user)
 		if err != nil {
+                        log.Printf("Error: %v\n", err)
 			return err
 		}
 		strFrom = user.Name
@@ -93,8 +96,10 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 		sendMsg = fmt.Sprintf("Usage : <br> /Search [Keyword] <br> /Asset [Device ID] <br> /Help : display help message")
 	}
 
-	fmt.Printf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
+	fmt.Printf("\n[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 	send_Notify(*AccessToken, *RoomID, sendMsg, *MsgColor)
+
+	fmt.Println("--- End ---")
 
 	msg := fmt.Sprintf("[%s|%s] %s: %s\n", sourceMessage.Date, sourceRoom.Name, strFrom, sourceMessage.Message)
 	_, err := f.WriteString(msg)
@@ -108,10 +113,6 @@ type myReader struct {
 func handler(w http.ResponseWriter, r *http.Request, outFile *os.File) {
 	var notifyEvent HipChatEvent
 
-	//buf := new(bytes.Buffer)
-	//buf.ReadFrom(r.Body)
-	//s := buf.String()
-
 	//fmt.Println(s)
 
 	var bodyBytes []byte
@@ -121,14 +122,14 @@ func handler(w http.ResponseWriter, r *http.Request, outFile *os.File) {
 	r.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
 	bodyString := string(bodyBytes)
 
-	fmt.Println("--- Original ---")
+	fmt.Println("\n\n--- Begin ---")
 	fmt.Println(bodyString)
-	fmt.Println("--- End ---")
 
 	json.NewDecoder(r.Body).Decode(&notifyEvent)
 
 	err := writeToFile(outFile, notifyEvent.Item.Room, notifyEvent.Item.Message)
 	if err != nil {
+		log.Printf("Error: %v\n", err)
 		w.WriteHeader(200)
 	} else {
 		w.WriteHeader(500)
