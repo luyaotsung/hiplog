@@ -140,7 +140,7 @@ func send_Notify(token string, id string, message string, color string) {
 
 	c := hipchat.NewClient(token)
 
-	notifRq := &hipchat.NotificationRequest{Message: message, Color: color}
+	notifRq := &hipchat.NotificationRequest{Message: message, Color: color ,From: "EliBot"}
 	resp2, err := c.Room.Notification(id, notifRq)
 
 	if err != nil {
