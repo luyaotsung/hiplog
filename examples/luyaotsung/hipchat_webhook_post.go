@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/tbruyelle/hipchat-go/hipchat"
+	"github.com/luyaotsung/hipchat-go/hipchat"
 	"io/ioutil"
 	"log"
 	"net/http"
