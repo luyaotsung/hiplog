@@ -5,12 +5,13 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/luyaotsung/hipchat-go/hipchat"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/luyaotsung/hipchat-go/hipchat"
 )
 
 type HipChatEvent struct {
@@ -35,9 +36,9 @@ type HipChatEventMessage struct {
 }
 
 type HipChatUser struct {
-	Id      float64    `json:"id"`
-	Mention string `json:"mention_name"`
-	Name    string `json:"name"`
+	Id      float64 `json:"id"`
+	Mention string  `json:"mention_name"`
+	Name    string  `json:"name"`
 }
 
 type HipChatFile struct {
@@ -66,13 +67,13 @@ func writeToFile(f *os.File, sourceRoom HipChatRoom, sourceMessage HipChatEventM
 	if !ok {
 		str, err := json.Marshal(sourceMessage.From)
 		if err != nil {
-                        log.Printf("Error: %v\n", err)
+			log.Printf("Error: %v\n", err)
 			return err
 		}
 		var user HipChatUser
 		err = json.Unmarshal([]byte(str), &user)
 		if err != nil {
-                        log.Printf("Error: %v\n", err)
+			log.Printf("Error: %v\n", err)
 			return err
 		}
 		strFrom = user.Name
@@ -140,7 +141,7 @@ func send_Notify(token string, id string, message string, color string) {
 
 	c := hipchat.NewClient(token)
 
-	notifRq := &hipchat.NotificationRequest{Message: message, Color: color ,From: "EliBot"}
+	notifRq := &hipchat.NotificationRequest{Message: message, Color: color, From: "Asset Management Server"}
 	resp2, err := c.Room.Notification(id, notifRq)
 
 	if err != nil {
