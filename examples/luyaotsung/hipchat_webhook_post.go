@@ -141,7 +141,7 @@ func send_Notify(token string, id string, message string, color string) {
 
 	c := hipchat.NewClient(token)
 
-	notifRq := &hipchat.NotificationRequest{Message: message, Color: color, From: "Asset Management Server"}
+	notifRq := &hipchat.NotificationRequest{Message: message, Color: color, From: "Asset Management"}
 	resp2, err := c.Room.Notification(id, notifRq)
 
 	if err != nil {
