@@ -1,0 +1,39 @@
+
+
+--- Begin ---
+{"event": "room_message", "item": {"message": {"date": "2015-12-08T03:01:01.569821+00:00", "from": {"id": 929882, "links": {"self": "https://api.hipchat.com/v2/user/929882"}, "mention_name": "eli", "name": "Eli Lu", "version": "00000000"}, "id": "ebcab94a-0ab3-4fae-9c78-8d771d058471", "mentions": [], "message": "/Help ", "type": "message"}, "room": {"id": 730783, "is_archived": false, "links": {"members": "https://api.hipchat.com/v2/room/730783/member", "participants": "https://api.hipchat.com/v2/room/730783/participant", "self": "https://api.hipchat.com/v2/room/730783", "webhooks": "https://api.hipchat.com/v2/room/730783/webhook"}, "name": "HC300000(All)", "privacy": "private", "version": "BMO5WR6V"}}, "oauth_client_id": "f7177a52-9c07-4ee1-9077-f7181919cb11", "webhook_id": 3235317}
+--- Bgin writeToFile ---
+
+[2015-12-08T03:01:01.569821+00:00|HC300000(All)] Eli Lu: /Help 
+--- End ---
+
+
+--- Begin ---
+{"event": "room_message", "item": {"message": {"date": "2015-12-08T10:27:31.527400+00:00", "from": {"id": 929882, "links": {"self": "https://api.hipchat.com/v2/user/929882"}, "mention_name": "eli", "name": "Eli Lu", "version": "00000000"}, "id": "71d88b93-a4b2-4982-9a56-c4962c5f2c2a", "mentions": [], "message": "/Search XXX", "type": "message"}, "room": {"id": 730783, "is_archived": false, "links": {"members": "https://api.hipchat.com/v2/room/730783/member", "participants": "https://api.hipchat.com/v2/room/730783/participant", "self": "https://api.hipchat.com/v2/room/730783", "webhooks": "https://api.hipchat.com/v2/room/730783/webhook"}, "name": "HC300000(All)", "privacy": "private", "version": "BMO5WR6V"}}, "oauth_client_id": "f7177a52-9c07-4ee1-9077-f7181919cb11", "webhook_id": 3235317}
+--- Bgin writeToFile ---
+
+[2015-12-08T10:27:31.527400+00:00|HC300000(All)] Eli Lu: /Search XXX
+--- End ---
+
+
+--- Begin ---
+{"event": "room_message", "item": {"message": {"date": "2015-12-08T10:30:54.186761+00:00", "from": {"id": 929882, "links": {"self": "https://api.hipchat.com/v2/user/929882"}, "mention_name": "eli", "name": "Eli Lu", "version": "00000000"}, "id": "38a8c476-4593-4195-b0b6-e5563a9f4fec", "mentions": [], "message": "/Search XXX", "type": "message"}, "room": {"id": 730783, "is_archived": false, "links": {"members": "https://api.hipchat.com/v2/room/730783/member", "participants": "https://api.hipchat.com/v2/room/730783/participant", "self": "https://api.hipchat.com/v2/room/730783", "webhooks": "https://api.hipchat.com/v2/room/730783/webhook"}, "name": "HC300000(All)", "privacy": "private", "version": "BMO5WR6V"}}, "oauth_client_id": "f7177a52-9c07-4ee1-9077-f7181919cb11", "webhook_id": 3235317}
+--- Bgin writeToFile ---
+
+[2015-12-08T10:30:54.186761+00:00|HC300000(All)] Eli Lu: /Search XXX
+--- End ---
+
+
+--- Begin ---
+{"event": "room_message", "item": {"message": {"date": "2015-12-08T10:32:51.064573+00:00", "from": {"id": 929882, "links": {"self": "https://api.hipchat.com/v2/user/929882"}, "mention_name": "eli", "name": "Eli Lu", "version": "00000000"}, "id": "33ccb4c4-674d-479e-88e6-f644aa0ee20b", "mentions": [], "message": "/Search XXXX", "type": "message"}, "room": {"id": 730783, "is_archived": false, "links": {"members": "https://api.hipchat.com/v2/room/730783/member", "participants": "https://api.hipchat.com/v2/room/730783/participant", "self": "https://api.hipchat.com/v2/room/730783", "webhooks": "https://api.hipchat.com/v2/room/730783/webhook"}, "name": "HC300000(All)", "privacy": "private", "version": "BMO5WR6V"}}, "oauth_client_id": "f7177a52-9c07-4ee1-9077-f7181919cb11", "webhook_id": 3235317}
+--- Bgin writeToFile ---
+
+[2015-12-08T10:32:51.064573+00:00|HC300000(All)] Eli Lu: /Search XXXX
+
+
+--- Begin ---
+{"event": "room_message", "item": {"message": {"date": "2015-12-08T10:33:49.087814+00:00", "from": {"id": 929882, "links": {"self": "https://api.hipchat.com/v2/user/929882"}, "mention_name": "eli", "name": "Eli Lu", "version": "00000000"}, "id": "825b867d-7c76-4d95-996b-3c87eb5254f3", "mentions": [], "message": "/Search ", "type": "message"}, "room": {"id": 730783, "is_archived": false, "links": {"members": "https://api.hipchat.com/v2/room/730783/member", "participants": "https://api.hipchat.com/v2/room/730783/participant", "self": "https://api.hipchat.com/v2/room/730783", "webhooks": "https://api.hipchat.com/v2/room/730783/webhook"}, "name": "HC300000(All)", "privacy": "private", "version": "BMO5WR6V"}}, "oauth_client_id": "f7177a52-9c07-4ee1-9077-f7181919cb11", "webhook_id": 3235317}
+--- Bgin writeToFile ---
+
+[2015-12-08T10:33:49.087814+00:00|HC300000(All)] Eli Lu: /Search 
+--- End ---
