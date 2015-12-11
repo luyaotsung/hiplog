@@ -126,7 +126,12 @@ func handler(w http.ResponseWriter, r *http.Request, outFile *os.File) {
 	fmt.Println("\n\n--- Begin ---")
 	fmt.Println(bodyString)
 
-	json.NewDecoder(r.Body).Decode(&notifyEvent)
+	err := json.NewDecoder(r.Body).Decode(&notifyEvent)
+
+	if err != nil {
+		log.Printf("Error: %v\n", err)
+		return err
+	}
 
 	err := writeToFile(outFile, notifyEvent.Item.Room, notifyEvent.Item.Message)
 	if err != nil {
